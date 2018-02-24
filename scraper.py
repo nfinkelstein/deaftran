@@ -1,9 +1,10 @@
 import urllib
-import urllib2
-import requests
-import imageio
+#import urllib2
+#import requests
+#import imageio
 import re
-from moviepy.editor import *
+import csv
+#from moviepy.editor import *
 
 
 ignore_list = ('a','am','the')
@@ -18,34 +19,24 @@ def parse_input(str):
     return terms
 
 def generate_gifs(terms):
-
-    i = 1
+    mydict = get_dict_from_csv("./real_outputs.csv")
     for term in terms:
         term = term.lower()
 
-        if(term == "i"):
-            term = "me"
+        if term in mydict:
+            print("Generating gif for", term)
 
-        if (term == "dog"):
-            term = "dog-fs"
-
-        if(term in ignore_list):
-            continue
-
-        url = 'https://www.handspeak.com/word/'+ term[0] +'/' + term + '.mp4'
-        print(url)
-        headers = {'User-Agent' : 'Mozilla/5.0'}
-        video_req=urllib.FancyURLopener()
-        video_req.retrieve(url,"video.mp4")
-
-
-        clip = (VideoFileClip("video.mp4"))
-        clip.write_gif(str(i) + '-' + term + "-asl.gif")
-
-        i = i + 1
+def get_dict_from_csv(csvfile):
+    reader = csv.reader(open(csvfile, 'r'))
+    d = {}
+    for row in reader:
+        k = row[0]
+        v = row[1]
+        d[k] = v
+    return d
 
 def __main__():
-    str = raw_input('Type sentence to translate: ')
+    str = input('Type sentence to translate: ')
     terms = parse_input(str)
     generate_gifs(terms)
 
