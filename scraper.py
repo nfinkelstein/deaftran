@@ -5,6 +5,7 @@ import imageio
 import re
 from moviepy.editor import *
 
+
 ignore_list = ('a','am','the')
 
 def parse_input(str):
@@ -49,39 +50,3 @@ def __main__():
     generate_gifs(terms)
 
 __main__()
-
-'''
-req = urllib2.Request(url, None, headers)
-response = urllib2.urlopen(req)
-the_page = response.read()
-print(the_page)
-'''
-
-'''
-params = {'search': '7420 Westlake Ter #1210 20817'}
-search_url = 'http://www.trulia.com/submit_search/?'
-url = search_url + urlencode(params)
-r = requests.get(url)
-print(r.url)
-'''
-'''
-
-import bs4
-from urllib.request import urlopen
-from bs4 import BeautifulSoup as soup
-
-url = "https://www.handspeak.com/word/"
-
-uClient = urlopen(url)
-
-page_html = uClient.read()
-
-uClient.close()
-
-page_soup = soup(page_html, "html.parser")
-
-# grabs each word
-containers = page_soup.findAll("a")
-
-print(len(containers))
-'''
