@@ -4,16 +4,17 @@ import urllib2
 import imageio
 import re
 import csv
-from moviepy.editor import *
 import os
+imageio.plugins.ffmpeg.download()
 
-mike_path = "C:\\Users\\mikeb\\Documents\\GitHub\\deaftran\\GIFS\\"
-nico_path = ""
 
-mike_short_path = "GIFS\\"
-nico_short_path = "GIFS/"
+mike_path = "C:\\Users\\mikeb\\Documents\\GitHub\\deaftran\\static\\"
+nico_path = "/Users/nico/Desktop/hackillinois/static/"
 
-curr_OS = 'mike'
+mike_short_path = "static\\"
+nico_short_path = "static/"
+
+curr_OS = 'nico'
 
 
 def clear_GIFS_directory():
@@ -29,7 +30,14 @@ def clear_GIFS_directory():
                 print(e)
 
     elif curr_OS == 'nico':
-        print('No Directory Specified')
+        for the_file in os.listdir(nico_path):
+            file_path = os.path.join(nico_path, the_file)
+            try:
+                if os.path.isfile(file_path):
+                    os.unlink(file_path)
+
+            except Exception as e:
+                print(e)
 
 
 def parse_input(str):
