@@ -61,7 +61,7 @@ def generate_gifs(terms):
 
             print("Generating gif for", term)
 
-            url = 'https://www.handspeak.com/word/' + term[0] + '/' + term + '.mp4'
+            url = mydict[term]
             print(url)
             headers = {'User-Agent': 'Mozilla/5.0'}
             video_req = urllib.request.FancyURLopener()

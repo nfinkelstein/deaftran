@@ -5,16 +5,16 @@ import imageio
 import re
 import csv
 import os
-imageio.plugins.ffmpeg.download()
+from moviepy.editor import *
 
 
-mike_path = "C:\\Users\\mikeb\\Documents\\GitHub\\deaftran\\static\\"
-nico_path = "/Users/nico/Desktop/hackillinois/static/"
+mike_path = "C:\\Users\\mikeb\\Documents\\GitHub\\deaftran\\static\\gifs\\"
+nico_path = "/Users/nico/Desktop/hackillinois/static/gifs/"
 
-mike_short_path = "static\\"
-nico_short_path = "static/"
+mike_short_path = "static\\gifs\\"
+nico_short_path = "static/gifs"
 
-curr_OS = 'nico'
+curr_OS = 'mike'
 
 
 def clear_GIFS_directory():
@@ -44,37 +44,47 @@ def parse_input(str):
 
     terms = str.split(' ')
 
+    i = 0
     for each in terms:
-        re.sub(r'[^\w]', '', each)
+        terms[i] = re.sub(r'[\W]', '', each)
+        #re.sub(r'.', '', each)
+        print(each)
+        i = i + 1
 
     return terms
 
 def generate_gifs(terms):
 
+    gifs = list();
     mydict = get_dict_from_csv("./real_outputs.csv")
-    i = 1
+
     for term in terms:
         term = term.lower()
 
-
         if term in mydict:
 
-            print("Generating gif for", term)
+            #print("Generating gif for", term)
 
-            url = 'https://www.handspeak.com/word/' + term[0] + '/' + term + '.mp4'
-            print(url)
+            url = mydict[term]
+
+            #print(url)
+
             headers = {'User-Agent': 'Mozilla/5.0'}
             video_req = urllib.FancyURLopener()
             video_req.retrieve(url, "video.mp4")
 
             clip = (VideoFileClip("video.mp4"))
+            clip = clip.resize(width=320)
+            clip = clip.resize(height=240)
 
             if curr_OS == 'mike':
-                clip.write_gif(mike_short_path + str(i) + '-' + term + "-asl.gif")
+                clip.write_gif(mike_short_path + term + "-asl.gif")
+                gifs.append(term + "-asl.gif")
             elif curr_OS == 'nico':
-                clip.write_gif(nico_short_path + str(i) + '-' + term + "-asl.gif")
+                clip.write_gif(nico_short_path + term + "-asl.gif")
+                gifs.append(term + "-asl.gif")
 
-            i = i + 1
+    return gifs
 
 
 def get_dict_from_csv(csvfile):
@@ -89,8 +99,8 @@ def get_dict_from_csv(csvfile):
 def __main__():
 
     clear_GIFS_directory()
-    str = raw_input('Type sentence to translate: ')
-    terms = parse_input(str)
-    generate_gifs(terms)
+    #str = raw_input('Type sentence to translate: ')
+    #terms = parse_input(str)
+    #gifs = generate_gifs(terms)
 
 __main__()

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>QuickASL</title>
+        <!--<link rel="icon" href="http://example.com/favicon.png">-->
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/styles.css" !important>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <style>
+
+            .card-deck {
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                flex-wrap: wrap;
+
+            }
+
+            .card {
+
+                box-shadow: 5px 5px 5px grey;
+                width:30%;
+                min-width: 22%;
+                margin: 1% 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="content">
+            <div class = "title">
+                <h1>QuickASL</h1>
+            </div>
+
+            <div class = "container">
+                <div class="card-deck">
+                    {% for item in gif_list %}
+                    <div class="card">
+                        <img class="card-img-top" src="..\static\gifs\{{ item }}" style="width:100%" alt="Card image">
+                        <div class="body">
+                            <h4 class="card-title">{{ item[:-8] }}</h4>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        <div class = "container">
+            <p>Created by Michael Benimovich, Nicolas Finkelstein
+                <br>Hack Illinois 2018</p>
+        </div>
+    </body>
+</html>
