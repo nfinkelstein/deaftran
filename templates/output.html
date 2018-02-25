@@ -17,7 +17,7 @@
 
                 display: flex;
                 flex-direction: row;
-                justify-content: space-between;
+                justify-content: center;
                 flex-wrap: wrap;
 
             }
@@ -27,8 +27,9 @@
                 box-shadow: 5px 5px 5px grey;
                 width:30%;
                 min-width: 22%;
-                margin: 1% 0;
+                margin: 1%;
             }
+
         </style>
     </head>
 
@@ -37,14 +38,13 @@
             <div class = "title">
                 <h1>QuickASL</h1>
             </div>
-
             <div class = "container">
                 <div class="card-deck">
                     {% for item in gif_list %}
                     <div class="card">
                         <img class="card-img-top" src="..\static\gifs\{{ item }}" style="width:100%" alt="Card image">
                         <div class="body">
-                            <h4 class="card-title">{{ item[:-8] }}</h4>
+                            <h4 class="card-title">{{ item[:-8].upper() }}</h4>
                         </div>
                     </div>
                     {% endfor %}

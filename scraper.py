@@ -6,6 +6,7 @@ import re
 import csv
 import os
 from moviepy.editor import *
+from nltk.stem.lancaster import LancasterStemmer
 
 
 mike_path = "C:\\Users\\mikeb\\Documents\\GitHub\\deaftran\\static\\gifs\\"
@@ -60,6 +61,15 @@ def generate_gifs(terms):
 
     for term in terms:
         term = term.lower()
+
+
+        if term == "men":
+            term = "man"
+        elif term == "women":
+            term = "woman"
+
+        st = LancasterStemmer()
+        if term not in mydict: term = st.stem(term)
 
         if term in mydict:
 
